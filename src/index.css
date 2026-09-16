@@ -1,0 +1,54 @@
+@import "tailwindcss";
+
+:root {
+  font-family: Tahoma, 'Segoe UI', Geneva, Verdana, sans-serif;
+  user-select: none;
+  -webkit-user-select: none;
+  overflow: hidden;
+}
+
+html, body, #root {
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+/* Classic Windows XP Scrollbar */
+::-webkit-scrollbar {
+  width: 16px;
+  height: 16px;
+}
+
+::-webkit-scrollbar-track {
+  background: #ECE9D8;
+  border-left: 1px solid #D4D0C8;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #ECE9D8;
+  border: 1px solid #FFFFFF;
+  border-right-color: #808080;
+  border-bottom-color: #808080;
+  box-shadow: inset 1px 1px 0px #DFDFDF, inset -1px -1px 0px #0a0a0a;
+}
+
+::-webkit-scrollbar-thumb:active {
+  background: #D4D0C8;
+}
+
+::-webkit-scrollbar-button {
+  background: #ECE9D8;
+  border: 1px solid #FFFFFF;
+  border-right-color: #808080;
+  border-bottom-color: #808080;
+  display: block;
+  height: 16px;
+  width: 16px;
+}

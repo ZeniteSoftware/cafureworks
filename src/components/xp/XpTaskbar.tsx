@@ -34,12 +34,18 @@ export const XpTaskbar: React.FC = () => {
     return () => clearInterval(timer);
   }, []);
 
-  // Auto-dismiss balloon after 12 seconds
+  // Auto-dismiss balloon after 12 seconds and play balloon sound
   useEffect(() => {
+    const balloonSoundTimer = setTimeout(() => {
+      sounds.playBalloon();
+    }, 2800);
     const timer = setTimeout(() => {
       setShowBalloon(false);
     }, 12000);
-    return () => clearInterval(timer);
+    return () => {
+      clearTimeout(balloonSoundTimer);
+      clearTimeout(timer);
+    };
   }, []);
 
   const handleStartClick = (e: React.MouseEvent) => {

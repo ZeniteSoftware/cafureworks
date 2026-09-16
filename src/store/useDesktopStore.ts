@@ -64,6 +64,9 @@ export function useDesktopStore() {
     const next = !isSoundEnabled;
     setIsSoundEnabled(next);
     sounds.enabled = next;
+    if (next) {
+      sounds.playDing();
+    }
     try {
       localStorage.setItem(STORAGE_SOUND, String(next));
     } catch {
@@ -145,7 +148,7 @@ export function useDesktopStore() {
   };
 
   const minimizeWindow = (id: string) => {
-    sounds.playClick();
+    sounds.playMinimize();
     setWindows((prev) =>
       prev.map((w) => (w.id === id ? { ...w, isMinimized: true } : w))
     );
@@ -161,7 +164,7 @@ export function useDesktopStore() {
   };
 
   const toggleMaximize = (id: string) => {
-    sounds.playClick();
+    sounds.playRestore();
     setWindows((prev) =>
       prev.map((w) => (w.id === id ? { ...w, isMaximized: !w.isMaximized } : w))
     );
@@ -267,6 +270,7 @@ export function useDesktopStore() {
   };
 
   const deleteProject = (id: string) => {
+    sounds.playRecycle();
     setProjects((prev) => {
       const updated = prev.filter((p) => p.id !== id);
       try {

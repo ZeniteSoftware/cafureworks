@@ -11,15 +11,15 @@ export const XpShutdownDialog: React.FC = () => {
   if (!isShutdownOpen) return null;
 
   const handleShutdown = () => {
-    sounds.playError();
+    sounds.playShutdown();
     setIsShuttingDown(true);
   };
 
   const handleRestart = () => {
-    sounds.playStartup();
+    sounds.playShutdown();
     setTimeout(() => {
       window.location.reload();
-    }, 800);
+    }, 1800);
   };
 
   const handleCancel = () => {
@@ -75,7 +75,7 @@ export const XpShutdownDialog: React.FC = () => {
           <div className="flex flex-col items-center space-y-2">
             <button
               onClick={() => {
-                sounds.playDing();
+                sounds.playLogoff();
                 setIsShutdownOpen(false);
               }}
               title="Em espera"

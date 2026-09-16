@@ -6,6 +6,7 @@ import { sounds } from './utils/sound';
 export function AppContent() {
   // Play startup sound on first user gesture (to respect browser autoplay policies)
   useEffect(() => {
+    sounds.preloadCommon();
     let played = false;
     const handleFirstClick = () => {
       if (!played) {

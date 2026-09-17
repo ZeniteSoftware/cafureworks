@@ -1,3 +1,5 @@
+export type SystemState = 'off' | 'turning-on' | 'login' | 'logging-in' | 'desktop';
+
 export type WindowType = 
   | 'folder' 
   | 'notepad' 

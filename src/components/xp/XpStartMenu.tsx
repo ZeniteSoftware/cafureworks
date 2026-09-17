@@ -8,6 +8,7 @@ export const XpStartMenu: React.FC = () => {
     isStartMenuOpen,
     setIsStartMenuOpen,
     setIsShutdownOpen,
+    logoff,
     openNotepad,
     openSystemProperties,
     openProjectManager,
@@ -219,8 +220,7 @@ export const XpStartMenu: React.FC = () => {
       >
         <button
           onClick={() => {
-            setIsStartMenuOpen(false);
-            setIsShutdownOpen(true);
+            logoff();
           }}
           className="flex items-center space-x-1.5 px-2 py-1 rounded-xs hover:bg-white/20 active:bg-white/30 cursor-pointer text-white"
         >

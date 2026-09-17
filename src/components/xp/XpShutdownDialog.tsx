@@ -1,57 +1,26 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useDesktop } from '../../context/DesktopContext';
 import { WindowsFlagIcon } from './XpIcons';
 import { Power, RotateCcw, Moon } from 'lucide-react';
 import { sounds } from '../../utils/sound';
 
 export const XpShutdownDialog: React.FC = () => {
-  const { isShutdownOpen, setIsShutdownOpen } = useDesktop();
-  const [isShuttingDown, setIsShuttingDown] = useState(false);
+  const { isShutdownOpen, setIsShutdownOpen, turnOff, restart, logoff } = useDesktop();
 
   if (!isShutdownOpen) return null;
 
   const handleShutdown = () => {
-    sounds.playShutdown();
-    setIsShuttingDown(true);
+    turnOff();
   };
 
   const handleRestart = () => {
-    sounds.playShutdown();
-    setTimeout(() => {
-      window.location.reload();
-    }, 1800);
+    restart();
   };
 
   const handleCancel = () => {
     sounds.playClick();
     setIsShutdownOpen(false);
   };
-
-  if (isShuttingDown) {
-    return (
-      <div className="fixed inset-0 z-[99999] bg-black flex flex-col items-center justify-center select-none text-center p-4">
-        <h1
-          style={{ fontFamily: 'Tahoma, "Segoe UI", sans-serif' }}
-          className="text-amber-500 font-bold text-2xl md:text-3xl tracking-wide mb-4 animate-pulse"
-        >
-          Seu computador já pode ser desligado com segurança.
-        </h1>
-        <p className="text-gray-400 text-sm mb-6">
-          Ou clique abaixo para voltar ao CafureWorks Desktop:
-        </p>
-        <button
-          onClick={() => {
-            setIsShuttingDown(false);
-            setIsShutdownOpen(false);
-            sounds.playStartup();
-          }}
-          className="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-sm shadow-md cursor-pointer text-sm"
-        >
-          Ligar Novamente (CafureWorks)
-        </button>
-      </div>
-    );
-  }
 
   return (
     <div className="fixed inset-0 z-[99998] flex items-center justify-center select-none backdrop-grayscale-80 backdrop-brightness-75 bg-black/30">
@@ -75,8 +44,7 @@ export const XpShutdownDialog: React.FC = () => {
           <div className="flex flex-col items-center space-y-2">
             <button
               onClick={() => {
-                sounds.playLogoff();
-                setIsShutdownOpen(false);
+                logoff();
               }}
               title="Em espera"
               className="w-12 h-12 rounded-lg bg-gradient-to-b from-amber-400 to-amber-600 border-2 border-white/80 shadow-md flex items-center justify-center hover:brightness-110 active:scale-95 cursor-pointer"

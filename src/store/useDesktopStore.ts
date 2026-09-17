@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import type { FolderItem, ProjectItem, WindowState, WindowType } from '../types';
+import type { FolderItem, ProjectItem, WindowState, WindowType, SystemState } from '../types';
 import { DEFAULT_FOLDERS, DEFAULT_PROJECTS, README_CONTENT } from '../data/projects';
 import { sounds } from '../utils/sound';
 
@@ -9,6 +9,7 @@ const STORAGE_POSITIONS = 'cafure_xp_icon_positions';
 const STORAGE_SOUND = 'cafure_xp_sound';
 
 export function useDesktopStore() {
+  const [systemState, setSystemState] = useState<SystemState>('off');
   const [windows, setWindows] = useState<WindowState[]>([]);
   const [activeWindowId, setActiveWindowId] = useState<string | null>(null);
   const [isStartMenuOpen, setIsStartMenuOpen] = useState<boolean>(false);
@@ -305,7 +306,58 @@ export function useDesktopStore() {
     sounds.playDing();
   };
 
+  const powerOn = () => {
+    sounds.preloadCommon();
+    sounds.playClick();
+    setSystemState('turning-on');
+    setTimeout(() => {
+      setSystemState('login');
+    }, 850);
+  };
+
+  const login = () => {
+    sounds.playClick();
+    setSystemState('logging-in');
+    sounds.playStartup();
+    setTimeout(() => {
+      setSystemState('desktop');
+    }, 1200);
+  };
+
+  const logoff = () => {
+    sounds.playLogoff();
+    setIsStartMenuOpen(false);
+    setIsShutdownOpen(false);
+    setSystemState('login');
+  };
+
+  const turnOff = () => {
+    sounds.playShutdown();
+    setIsStartMenuOpen(false);
+    setIsShutdownOpen(false);
+    setWindows([]);
+    setSystemState('off');
+  };
+
+  const restart = () => {
+    sounds.playShutdown();
+    setIsStartMenuOpen(false);
+    setIsShutdownOpen(false);
+    setWindows([]);
+    setSystemState('off');
+    setTimeout(() => {
+      powerOn();
+    }, 1800);
+  };
+
   return {
+    systemState,
+    setSystemState,
+    powerOn,
+    login,
+    logoff,
+    turnOff,
+    restart,
     windows,
     activeWindowId,
     isStartMenuOpen,

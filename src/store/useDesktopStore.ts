@@ -376,6 +376,46 @@ export function useDesktopStore() {
     });
   };
 
+  const openRun = () => {
+    openWindow({
+      id: 'app-run',
+      title: 'Executar',
+      type: 'run',
+      icon: 'run',
+      defaultSize: { width: 410, height: 210 },
+    });
+  };
+
+  const openDateTime = () => {
+    openWindow({
+      id: 'app-datetime',
+      title: 'Propriedades de Data e Hora',
+      type: 'datetime',
+      icon: 'date-and-time',
+      defaultSize: { width: 440, height: 420 },
+    });
+  };
+
+  const openTaskManager = () => {
+    openWindow({
+      id: 'app-taskmgr',
+      title: 'Gerenciador de Tarefas do Windows',
+      type: 'taskmgr',
+      icon: 'taskbar',
+      defaultSize: { width: 500, height: 460 },
+    });
+  };
+
+  const openPinball = () => {
+    openWindow({
+      id: 'app-pinball',
+      title: '3D Pinball for Windows - Space Cadet',
+      type: 'pinball',
+      icon: 'pinball',
+      defaultSize: { width: 620, height: 500 },
+    });
+  };
+
   const addProject = (item: ProjectItem) => {
     setProjects((prev) => {
       const updated = [item, ...prev];
@@ -565,6 +605,10 @@ export function useDesktopStore() {
     openPaint,
     openCalculator,
     openCredits,
+    openRun,
+    openDateTime,
+    openTaskManager,
+    openPinball,
     wallpaper,
     setWallpaper,
     isScreensaverActive,

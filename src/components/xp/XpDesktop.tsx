@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { useDesktop } from '../../context/DesktopContext';
 import { XpWallpaper } from './XpWallpaper';
 import { XpMarqueeSelection } from './XpMarqueeSelection';
@@ -20,6 +20,11 @@ import { XpMediaPlayer } from './XpMediaPlayer';
 import { XpPaint } from './XpPaint';
 import { XpCalculator } from './XpCalculator';
 import { XpCredits } from './XpCredits';
+import { XpRunDialog } from './XpRunDialog';
+import { XpDateTimeDialog } from './XpDateTimeDialog';
+import { XpTaskManager } from './XpTaskManager';
+import { XpPinball } from './XpPinball';
+import { XpAssistant } from './XpAssistant';
 import { sounds } from '../../utils/sound';
 
 export const XpDesktop: React.FC = () => {
@@ -41,8 +46,27 @@ export const XpDesktop: React.FC = () => {
     openPaint,
     openCalculator,
     openCredits,
+    openRun,
+    openTaskManager,
+    openPinball,
     arrangeIconsToGrid,
   } = useDesktop();
+
+  // Global Keyboard Shortcuts (Win+R / Alt+R for Run, Ctrl+Shift+Esc for Taskmgr)
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.altKey || e.metaKey) && e.key.toLowerCase() === 'r') {
+        e.preventDefault();
+        openRun();
+      }
+      if (e.ctrlKey && e.shiftKey && e.key === 'Escape') {
+        e.preventDefault();
+        openTaskManager();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [openRun, openTaskManager]);
 
   const desktopRef = useRef<HTMLDivElement>(null);
 
@@ -81,6 +105,7 @@ export const XpDesktop: React.FC = () => {
   const posNotepad = getGridPosition(iconIndex++);
   const posProjectManager = getGridPosition(iconIndex++);
   const posCredits = getGridPosition(iconIndex++);
+  const posPinball = getGridPosition(iconIndex++);
 
   // Custom user folders on desktop (if any)
   const desktopFolders = folders.filter((f) => f.showOnDesktop === true);
@@ -213,6 +238,16 @@ export const XpDesktop: React.FC = () => {
         onOpen={openCredits}
       />
 
+      {/* 11. 3D Pinball */}
+      <XpDesktopIcon
+        id="desktop-pinball"
+        title="3D Pinball"
+        icon="pinball"
+        defaultX={posPinball.x}
+        defaultY={posPinball.y}
+        onOpen={openPinball}
+      />
+
       {/* Custom folders on Desktop (if any) */}
       {desktopFolders.map((folder, index) => (
         <XpDesktopIcon
@@ -281,6 +316,10 @@ export const XpDesktop: React.FC = () => {
             {win.type === 'paint' && <XpPaint />}
             {win.type === 'calc' && <XpCalculator />}
             {win.type === 'credits' && <XpCredits />}
+            {win.type === 'run' && <XpRunDialog />}
+            {win.type === 'datetime' && <XpDateTimeDialog />}
+            {win.type === 'taskmgr' && <XpTaskManager />}
+            {win.type === 'pinball' && <XpPinball />}
           </XpWindow>
         );
       })}
@@ -353,6 +392,24 @@ export const XpDesktop: React.FC = () => {
           >
             Créditos & Recursos...
           </button>
+          <button
+            onClick={() => {
+              openRun();
+              closeContextMenu();
+            }}
+            className="w-full text-left px-4 py-1 hover:bg-[#316AC5] hover:text-white cursor-pointer"
+          >
+            Executar...
+          </button>
+          <button
+            onClick={() => {
+              openTaskManager();
+              closeContextMenu();
+            }}
+            className="w-full text-left px-4 py-1 hover:bg-[#316AC5] hover:text-white cursor-pointer"
+          >
+            Gerenciador de Tarefas
+          </button>
           <div className="h-[1px] bg-[#D4CEB8] my-1" />
           <button
             onClick={() => {
@@ -365,6 +422,9 @@ export const XpDesktop: React.FC = () => {
           </button>
         </div>
       )}
+
+      {/* Retro Companion Mascot / Assistant */}
+      <XpAssistant />
 
       {/* Start Menu */}
       <XpStartMenu />

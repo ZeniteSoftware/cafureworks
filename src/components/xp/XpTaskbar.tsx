@@ -3,6 +3,7 @@ import { useDesktop } from '../../context/DesktopContext';
 import { WindowsFlagIcon } from './XpIcons';
 import { XpIconRenderer } from './XpIconRenderer';
 import { Volume2, VolumeX, Shield, Monitor } from 'lucide-react';
+import { XpVolumePopup } from './XpVolumePopup';
 import { sounds } from '../../utils/sound';
 
 export const XpTaskbar: React.FC = () => {
@@ -14,12 +15,16 @@ export const XpTaskbar: React.FC = () => {
     focusWindow,
     minimizeWindow,
     isSoundEnabled,
-    toggleSound,
     openNotepad,
+    openDateTime,
+    openTaskManager,
+    openDisplayProperties,
   } = useDesktop();
 
   const [time, setTime] = useState<string>('');
   const [showBalloon, setShowBalloon] = useState<boolean>(true);
+  const [isVolumeOpen, setIsVolumeOpen] = useState<boolean>(false);
+  const [taskbarMenu, setTaskbarMenu] = useState<{ x: number; y: number } | null>(null);
 
   // Digital clock update
   useEffect(() => {
@@ -67,6 +72,13 @@ export const XpTaskbar: React.FC = () => {
 
   return (
     <div
+      onContextMenu={(e) => {
+        e.preventDefault();
+        setTaskbarMenu({ x: e.clientX, y: e.clientY });
+      }}
+      onClick={() => {
+        if (taskbarMenu) setTaskbarMenu(null);
+      }}
       style={{
         background:
           'linear-gradient(to bottom, #245edc 0%, #3f8cf3 9%, #245edc 18%, #245edc 92%, #1941a5 100%)',
@@ -161,10 +173,14 @@ export const XpTaskbar: React.FC = () => {
         }}
         className="relative h-full flex items-center space-x-2.5 px-3 border-l border-[#1941a5] text-white shrink-0"
       >
-        {/* Sound Toggle */}
+        {/* Sound Volume Slider Popup Opener */}
         <button
-          onClick={toggleSound}
-          title={isSoundEnabled ? 'Som ativado (clique para mutar)' : 'Som mudo (clique para ativar)'}
+          onClick={(e) => {
+            e.stopPropagation();
+            sounds.playClick();
+            setIsVolumeOpen(!isVolumeOpen);
+          }}
+          title={isSoundEnabled ? 'Volume (clique para ajustar)' : 'Sem áudio (clique para ajustar)'}
           className="hover:opacity-80 cursor-pointer"
         >
           {isSoundEnabled ? <Volume2 size={15} className="text-white" /> : <VolumeX size={15} className="text-red-300" />}
@@ -175,10 +191,17 @@ export const XpTaskbar: React.FC = () => {
           <Shield size={14} className="text-emerald-400" />
         </div>
 
-        {/* Digital Clock */}
-        <span className="font-sans font-medium text-[11px] text-white tracking-wide">
+        {/* Digital Clock with Click-to-Open Date and Time Properties */}
+        <button
+          onClick={() => {
+            sounds.playClick();
+            openDateTime();
+          }}
+          title="Clique para abrir as Propriedades de Data e Hora"
+          className="font-sans font-medium text-[11px] text-white tracking-wide hover:underline cursor-pointer"
+        >
           {time || '12:00'}
-        </span>
+        </button>
 
         {/* Welcome Balloon Tooltip */}
         {showBalloon && (
@@ -210,6 +233,53 @@ export const XpTaskbar: React.FC = () => {
           </div>
         )}
       </div>
+
+      {/* Vertical Volume Slider Popup */}
+      <XpVolumePopup isOpen={isVolumeOpen} onClose={() => setIsVolumeOpen(false)} />
+
+      {/* Right Click Taskbar Context Menu */}
+      {taskbarMenu && (
+        <div
+          onClick={(e) => e.stopPropagation()}
+          style={{
+            bottom: 32,
+            left: Math.min(typeof window !== 'undefined' ? window.innerWidth - 190 : 800, taskbarMenu.x),
+            boxShadow: '2px 2px 6px rgba(0,0,0,0.35)',
+            fontFamily: 'Tahoma, "Segoe UI", sans-serif',
+          }}
+          className="fixed z-[99999] w-48 bg-[#ECE9D8] border border-[#716F64] rounded-2xs py-1 text-[11px] text-gray-900 select-none shadow-md"
+        >
+          <button
+            onClick={() => {
+              windows.forEach((w) => minimizeWindow(w.id));
+              setTaskbarMenu(null);
+            }}
+            className="w-full text-left px-3 py-1 hover:bg-[#316AC5] hover:text-white cursor-pointer"
+          >
+            Mostrar a Área de Trabalho
+          </button>
+          <div className="h-[1px] bg-[#D4CEB8] my-1" />
+          <button
+            onClick={() => {
+              openTaskManager();
+              setTaskbarMenu(null);
+            }}
+            className="w-full text-left px-3 py-1 hover:bg-[#316AC5] hover:text-white cursor-pointer font-bold"
+          >
+            Gerenciador de Tarefas
+          </button>
+          <div className="h-[1px] bg-[#D4CEB8] my-1" />
+          <button
+            onClick={() => {
+              openDisplayProperties();
+              setTaskbarMenu(null);
+            }}
+            className="w-full text-left px-3 py-1 hover:bg-[#316AC5] hover:text-white cursor-pointer"
+          >
+            Propriedades
+          </button>
+        </div>
+      )}
     </div>
   );
 };

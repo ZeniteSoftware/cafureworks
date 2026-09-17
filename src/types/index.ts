@@ -13,7 +13,11 @@ export type WindowType =
   | 'media-player'
   | 'paint'
   | 'calc'
-  | 'credits';
+  | 'credits'
+  | 'run'
+  | 'datetime'
+  | 'taskmgr'
+  | 'pinball';
 
 export interface ProjectItem {
   id: string;

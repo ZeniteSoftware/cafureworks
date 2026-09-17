@@ -21,6 +21,9 @@ export const XpStartMenu: React.FC = () => {
     openPaint,
     openCalculator,
     openCredits,
+    openRun,
+    openTaskManager,
+    openPinball,
     projects,
   } = useDesktop();
 
@@ -146,6 +149,42 @@ export const XpStartMenu: React.FC = () => {
               </p>
               <p className="text-[9px] text-gray-500 group-hover:text-blue-100 truncate">
                 Jogo Clássico
+              </p>
+            </div>
+          </button>
+
+          <button
+            onClick={() => {
+              openPinball();
+              setIsStartMenuOpen(false);
+            }}
+            className="flex items-center space-x-2 w-full p-1.5 rounded-xs hover:bg-[#316AC5] hover:text-white cursor-pointer group text-left"
+          >
+            <XpIconRenderer icon="pinball" size={24} />
+            <div className="overflow-hidden">
+              <p className="font-bold text-gray-900 group-hover:text-white truncate">
+                3D Pinball
+              </p>
+              <p className="text-[9px] text-gray-500 group-hover:text-blue-100 truncate">
+                Space Cadet
+              </p>
+            </div>
+          </button>
+
+          <button
+            onClick={() => {
+              openTaskManager();
+              setIsStartMenuOpen(false);
+            }}
+            className="flex items-center space-x-2 w-full p-1.5 rounded-xs hover:bg-[#316AC5] hover:text-white cursor-pointer group text-left"
+          >
+            <XpIconRenderer icon="taskbar" size={24} />
+            <div className="overflow-hidden">
+              <p className="font-bold text-gray-900 group-hover:text-white truncate">
+                Gerenciador de Tarefas
+              </p>
+              <p className="text-[9px] text-gray-500 group-hover:text-blue-100 truncate">
+                taskmgr.exe
               </p>
             </div>
           </button>
@@ -309,6 +348,19 @@ export const XpStartMenu: React.FC = () => {
             <XpIconRenderer icon="browser" size={16} />
             <span>Portal cafureworks.link</span>
           </a>
+
+          <div className="h-[1px] bg-[#B5CDF2] my-1" />
+
+          <button
+            onClick={() => {
+              openRun();
+              setIsStartMenuOpen(false);
+            }}
+            className="flex items-center space-x-2 w-full p-1.5 rounded-xs hover:bg-[#316AC5] hover:text-white cursor-pointer text-left font-medium"
+          >
+            <XpIconRenderer icon="run" size={16} />
+            <span>Executar...</span>
+          </button>
         </div>
       </div>
 

@@ -43,7 +43,7 @@ export const XpCrtTurnOn: React.FC = () => {
 
           <div className="pt-4 flex items-center space-x-2 text-[11px] text-gray-500 font-mono">
             <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-            <span>CafureWorks • Zênite Software</span>
+            <span>CafureWorks • Pedro Cafure</span>
           </div>
         </div>
       )}

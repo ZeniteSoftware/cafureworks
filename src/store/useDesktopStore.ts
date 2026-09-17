@@ -22,19 +22,29 @@ export function useDesktopStore() {
   const [projects, setProjects] = useState<ProjectItem[]>(() => {
     try {
       const saved = localStorage.getItem(STORAGE_PROJECTS);
-      return saved ? JSON.parse(saved) : DEFAULT_PROJECTS;
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (
+          Array.isArray(parsed) &&
+          parsed.some(
+            (p: ProjectItem) =>
+              p.id === 'zenite-hub' || p.id === 'prisma' || p.id === 'evolution-whatsapp'
+          )
+        ) {
+          localStorage.removeItem(STORAGE_PROJECTS);
+          return DEFAULT_PROJECTS;
+        }
+        return parsed;
+      }
+      return DEFAULT_PROJECTS;
     } catch {
       return DEFAULT_PROJECTS;
     }
   });
 
   const [folders, setFolders] = useState<FolderItem[]>(() => {
-    try {
-      const saved = localStorage.getItem(STORAGE_FOLDERS);
-      return saved ? JSON.parse(saved) : DEFAULT_FOLDERS;
-    } catch {
-      return DEFAULT_FOLDERS;
-    }
+    localStorage.removeItem(STORAGE_FOLDERS);
+    return DEFAULT_FOLDERS;
   });
 
   // Icon positions
@@ -350,6 +360,12 @@ export function useDesktopStore() {
     }, 1800);
   };
 
+  const arrangeIconsToGrid = () => {
+    localStorage.removeItem(STORAGE_POSITIONS);
+    setIconPositions({});
+    sounds.playClick();
+  };
+
   return {
     systemState,
     setSystemState,
@@ -358,6 +374,7 @@ export function useDesktopStore() {
     logoff,
     turnOff,
     restart,
+    arrangeIconsToGrid,
     windows,
     activeWindowId,
     isStartMenuOpen,

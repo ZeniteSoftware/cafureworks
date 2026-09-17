@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 import { useDesktop } from '../../context/DesktopContext';
 import { XpWallpaper } from './XpWallpaper';
 import { XpMarqueeSelection } from './XpMarqueeSelection';
-import { XpDesktopIcon } from './XpDesktopIcon';
+import { XpDesktopIcon, GRID_CELL_W, GRID_CELL_H, GRID_START_X, GRID_START_Y } from './XpDesktopIcon';
 import { XpTaskbar } from './XpTaskbar';
 import { XpStartMenu } from './XpStartMenu';
 import { XpShutdownDialog } from './XpShutdownDialog';
@@ -26,6 +26,7 @@ export const XpDesktop: React.FC = () => {
     openNotepad,
     openSystemProperties,
     openProjectManager,
+    arrangeIconsToGrid,
   } = useDesktop();
 
   const desktopRef = useRef<HTMLDivElement>(null);
@@ -42,38 +43,37 @@ export const XpDesktop: React.FC = () => {
     setContextMenu(null);
   };
 
-  // Base layout grid positions for default icons
-  let currentGridY = 20;
-  let currentGridX = 20;
-  const gridGapY = 78;
-  const gridGapX = 85;
-
-  const nextPos = () => {
-    const pos = { x: currentGridX, y: currentGridY };
-    currentGridY += gridGapY;
-    if (currentGridY > window.innerHeight - 150) {
-      currentGridY = 20;
-      currentGridX += gridGapX;
-    }
-    return pos;
+  // Base layout grid calculation
+  const getGridPosition = (index: number) => {
+    const windowH = typeof window !== 'undefined' ? window.innerHeight : 800;
+    const maxRows = Math.max(1, Math.floor((windowH - 50 - GRID_START_Y) / GRID_CELL_H));
+    const col = Math.floor(index / maxRows);
+    const row = index % maxRows;
+    return {
+      x: GRID_START_X + col * GRID_CELL_W,
+      y: GRID_START_Y + row * GRID_CELL_H,
+    };
   };
 
-  // Pre-calculated default positions
-  const posMyComputer = nextPos();
-  const posMyProjects = nextPos();
-  const posNotepad = nextPos();
+  let iconIndex = 0;
+  const posMyComputer = getGridPosition(iconIndex++);
+  const posMyProjects = getGridPosition(iconIndex++);
+  const posNotepad = getGridPosition(iconIndex++);
+  const posProjectManager = getGridPosition(iconIndex++);
 
-  // Folders on desktop
-  const desktopFolders = folders.filter((f) => f.showOnDesktop !== false);
-  const folderPositions = desktopFolders.map(() => nextPos());
+  // Custom user folders on desktop (if any)
+  const desktopFolders = folders.filter((f) => f.showOnDesktop === true);
+  const folderPositions = desktopFolders.map(() => getGridPosition(iconIndex++));
 
-  // Projects on desktop
+  // Custom user projects on desktop (if any)
   const desktopProjects = projects.filter((p) => p.showOnDesktop !== false);
-  const projectPositions = desktopProjects.map(() => nextPos());
+  const projectPositions = desktopProjects.map(() => getGridPosition(iconIndex++));
 
-  // Management & Tools
-  const posProjectManager = nextPos();
-  const posRecycle = { x: 20, y: Math.max(300, (window.innerHeight || 800) - 130) };
+  // Recycle bin positioned at the bottom of the first grid column
+  const windowH = typeof window !== 'undefined' ? window.innerHeight : 800;
+  const maxRows = Math.max(1, Math.floor((windowH - 50 - GRID_START_Y) / GRID_CELL_H));
+  const recycleRow = Math.max(iconIndex, maxRows - 1);
+  const posRecycle = { x: GRID_START_X, y: GRID_START_Y + recycleRow * GRID_CELL_H };
 
   return (
     <div
@@ -91,7 +91,7 @@ export const XpDesktop: React.FC = () => {
       {/* Marquee Area Drag Selection */}
       <XpMarqueeSelection containerRef={desktopRef} />
 
-      {/* DESKTOP ICONS */}
+      {/* DESKTOP ICONS - ALIGNED TO GRID */}
       {/* 1. Meu Computador */}
       <XpDesktopIcon
         id="desktop-my-computer"
@@ -102,18 +102,37 @@ export const XpDesktop: React.FC = () => {
         onOpen={openSystemProperties}
       />
 
-      {/* 2. Meus Projetos (Explorer Root) */}
+      {/* 2. Meus Projetos */}
       <XpDesktopIcon
         id="desktop-my-projects"
         title="Meus Projetos"
         icon="folder-projects"
-        badge="Hub"
         defaultX={posMyProjects.x}
         defaultY={posMyProjects.y}
         onOpen={() => openFolderWindow('web-apps')}
       />
 
-      {/* 3. Folders on Desktop */}
+      {/* 3. Bloco de Notas (README.txt) */}
+      <XpDesktopIcon
+        id="desktop-readme"
+        title="README.txt"
+        icon="notepad"
+        defaultX={posNotepad.x}
+        defaultY={posNotepad.y}
+        onOpen={() => openNotepad()}
+      />
+
+      {/* 4. Gerenciador de Projetos */}
+      <XpDesktopIcon
+        id="desktop-manager"
+        title="Adicionar Projeto"
+        icon="project-manager"
+        defaultX={posProjectManager.x}
+        defaultY={posProjectManager.y}
+        onOpen={openProjectManager}
+      />
+
+      {/* 5. Custom folders on Desktop (if any) */}
       {desktopFolders.map((folder, index) => (
         <XpDesktopIcon
           key={folder.id}
@@ -126,39 +145,18 @@ export const XpDesktop: React.FC = () => {
         />
       ))}
 
-      {/* 4. Projects on Desktop (e.g. Prisma) */}
+      {/* 6. Custom user projects on Desktop (if any) */}
       {desktopProjects.map((project, index) => (
         <XpDesktopIcon
           key={project.id}
           id={`desktop-project-${project.id}`}
           title={project.title}
           icon={project.icon}
-          badge={project.badge}
           defaultX={projectPositions[index].x}
           defaultY={projectPositions[index].y}
           onOpen={() => openProject(project)}
         />
       ))}
-
-      {/* 5. Bloco de Notas (README.txt) */}
-      <XpDesktopIcon
-        id="desktop-readme"
-        title="README.txt"
-        icon="notepad"
-        defaultX={posNotepad.x}
-        defaultY={posNotepad.y}
-        onOpen={() => openNotepad()}
-      />
-
-      {/* 6. Gerenciador de Projetos */}
-      <XpDesktopIcon
-        id="desktop-manager"
-        title="Adicionar Projeto"
-        icon="project-manager"
-        defaultX={posProjectManager.x}
-        defaultY={posProjectManager.y}
-        onOpen={openProjectManager}
-      />
 
       {/* 7. Lixeira */}
       <XpDesktopIcon
@@ -226,8 +224,18 @@ export const XpDesktop: React.FC = () => {
             boxShadow: '2px 2px 6px rgba(0,0,0,0.35)',
             fontFamily: 'Tahoma, "Segoe UI", sans-serif',
           }}
-          className="fixed z-[99999] w-48 bg-[#ECE9D8] border border-[#716F64] rounded-2xs py-1 text-[11px] text-gray-900 select-none shadow-md"
+          className="fixed z-[99999] w-52 bg-[#ECE9D8] border border-[#716F64] rounded-2xs py-1 text-[11px] text-gray-900 select-none shadow-md"
         >
+          <button
+            onClick={() => {
+              arrangeIconsToGrid();
+              closeContextMenu();
+            }}
+            className="w-full text-left px-4 py-1 hover:bg-[#316AC5] hover:text-white cursor-pointer font-bold"
+          >
+            Organizar Ícones em Grade
+          </button>
+          <div className="h-[1px] bg-[#D4CEB8] my-1" />
           <button
             onClick={() => {
               sounds.playClick();
@@ -271,7 +279,7 @@ export const XpDesktop: React.FC = () => {
               openSystemProperties();
               closeContextMenu();
             }}
-            className="w-full text-left px-4 py-1 hover:bg-[#316AC5] hover:text-white cursor-pointer font-bold"
+            className="w-full text-left px-4 py-1 hover:bg-[#316AC5] hover:text-white cursor-pointer"
           >
             Propriedades
           </button>

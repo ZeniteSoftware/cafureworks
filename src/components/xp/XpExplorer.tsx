@@ -203,11 +203,11 @@ export const XpExplorer: React.FC<XpExplorerProps> = ({ currentFolderId: initial
                 <span>Ver documentação (README)</span>
               </button>
               <button
-                onClick={() => window.open('https://github.com/ZeniteSoftware', '_blank')}
+                onClick={() => window.open('https://cafureworks.link', '_blank')}
                 className="flex items-center space-x-1.5 hover:underline text-left cursor-pointer w-full"
               >
                 <ExternalLink size={12} className="text-blue-600" />
-                <span>GitHub ZeniteSoftware</span>
+                <span>Portal CafureWorks</span>
               </button>
             </div>
           </div>

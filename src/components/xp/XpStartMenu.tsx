@@ -200,13 +200,13 @@ export const XpStartMenu: React.FC = () => {
           <div className="h-[1px] bg-[#B5CDF2] my-1" />
 
           <a
-            href="https://github.com/ZeniteSoftware"
+            href="https://cafureworks.link"
             target="_blank"
             rel="noreferrer"
             className="flex items-center space-x-2 w-full p-1.5 rounded-xs hover:bg-[#316AC5] hover:text-white cursor-pointer text-left"
           >
-            <XpIconRenderer icon="github" size={16} />
-            <span>GitHub Zênite</span>
+            <XpIconRenderer icon="browser" size={16} />
+            <span>Portal cafureworks.link</span>
           </a>
         </div>
       </div>

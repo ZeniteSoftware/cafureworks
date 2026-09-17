@@ -110,16 +110,16 @@ export const XpSystemProperties: React.FC = () => {
           <div className="space-y-3">
             <h4 className="font-bold text-gray-800 text-[12px]">Sobre Pedro Cafure</h4>
             <p className="text-gray-700 leading-relaxed">
-              Desenvolvedor e entusiasta de tecnologia, focado em desenvolvimento full-stack, automações de alto volume (como Evolution WhatsApp API), integrações modernas e soluções escaláveis com a Zênite Software.
+              Desenvolvedor e entusiasta de tecnologia, focado em desenvolvimento full-stack, automações modernas, web apps e soluções escaláveis para seus projetos pessoais no domínio cafureworks.link.
             </p>
             <div className="pt-2 border-t border-gray-300 flex flex-col space-y-1">
               <a
-                href="https://github.com/ZeniteSoftware"
+                href="https://cafureworks.link"
                 target="_blank"
                 rel="noreferrer"
                 className="text-blue-700 hover:underline flex items-center space-x-1"
               >
-                <span>↗ GitHub ZeniteSoftware</span>
+                <span>↗ cafureworks.link</span>
               </a>
               <span className="text-gray-600">Contato: contato@cafureworks.link</span>
             </div>

@@ -89,4 +89,4 @@ npx wrangler pages deploy dist --project-name cafureworks
 
 ---
 
-Desenvolvido por **Pedro Cafure** (Zênite Software®).
+Desenvolvido por **Pedro Cafure**.

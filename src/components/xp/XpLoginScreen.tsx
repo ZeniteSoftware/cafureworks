@@ -74,7 +74,7 @@ export const XpLoginScreen: React.FC = () => {
               Para começar, clique em seu nome de usuário
             </h1>
             <p className="text-xs text-blue-200 mt-2 max-w-xs drop-shadow-sm">
-              Ambiente de trabalho completo Zênite Software com acesso aos projetos e subdomínios.
+              Ambiente de trabalho pessoal com acesso aos seus projetos e subdomínios.
             </p>
           </div>
 

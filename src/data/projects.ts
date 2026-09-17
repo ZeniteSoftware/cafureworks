@@ -47,6 +47,19 @@ COMO FUNCIONA:
   subdomínios e ferramentas a qualquer momento.
 - O botão "Iniciar" dá acesso rápido aos atalhos e utilitários.
 
+=====================================================
+ AGRADECIMENTOS E CRÉDITOS DE ARTE
+=====================================================
+Os ícones em alta resolução (256x256) utilizados neste
+sistema são da incrível coleção:
+
+• Pacote: Windows XP High Resolution Icon Pack
+• Autor: marchmountain (DeviantArt)
+• Link: https://www.deviantart.com/marchmountain/art/Windows-XP-High-Resolution-Icon-Pack-916042853
+
+Um agradecimento especial a marchmountain pelo trabalho
+artístico de recriação e restauração dos ícones históricos!
+
 Divirta-se explorando o CafureWorks!
 `;
 

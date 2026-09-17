@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { SYSTEM_SPECS } from '../../data/projects';
 import { WindowsFlagIcon, MyComputerIcon } from './XpIcons';
+import { XpIconRenderer } from './XpIconRenderer';
+import { ExternalLink } from 'lucide-react';
 import { useDesktop } from '../../context/DesktopContext';
 
 export const XpSystemProperties: React.FC = () => {
   const { closeWindow } = useDesktop();
-  const [activeTab, setActiveTab] = useState<'geral' | 'stack' | 'sobre'>('geral');
+  const [activeTab, setActiveTab] = useState<'geral' | 'stack' | 'sobre' | 'creditos'>('geral');
 
   return (
     <div className="flex flex-col h-full bg-[#ECE9D8] p-3 select-none text-[11px] font-sans">
@@ -29,7 +31,7 @@ export const XpSystemProperties: React.FC = () => {
               : 'bg-[#D8D2BD] border-transparent text-gray-700 hover:bg-[#E5E0CE]'
           }`}
         >
-          Stack & Cloudflare
+          Stack
         </button>
         <button
           onClick={() => setActiveTab('sobre')}
@@ -40,6 +42,16 @@ export const XpSystemProperties: React.FC = () => {
           }`}
         >
           Pedro Cafure
+        </button>
+        <button
+          onClick={() => setActiveTab('creditos')}
+          className={`px-3 py-1 text-[11px] rounded-t-sm border-t border-l border-r cursor-pointer transition-colors ${
+            activeTab === 'creditos'
+              ? 'bg-[#ECE9D8] border-[#919B9C] font-semibold -mb-[1px] pb-1.5 bg-gradient-to-t from-[#ECE9D8] to-white'
+              : 'bg-[#D8D2BD] border-transparent text-gray-700 hover:bg-[#E5E0CE]'
+          }`}
+        >
+          Créditos & Ícones
         </button>
       </div>
 
@@ -122,6 +134,45 @@ export const XpSystemProperties: React.FC = () => {
                 <span>↗ cafureworks.link</span>
               </a>
               <span className="text-gray-600">Contato: contato@cafureworks.link</span>
+            </div>
+          </div>
+        )}
+
+        {activeTab === 'creditos' && (
+          <div className="space-y-3">
+            <div className="flex items-start space-x-3 p-2.5 bg-white border border-[#919B9C] rounded-xs shadow-2xs">
+              <div className="shrink-0 p-0.5">
+                <XpIconRenderer icon="credits" size={36} />
+              </div>
+              <div className="space-y-1">
+                <p className="font-bold text-gray-900 text-[12px]">Windows XP High Resolution Icon Pack</p>
+                <div className="flex items-center space-x-2">
+                  <span className="text-gray-600">Autor:</span>
+                  <span className="px-1.5 py-0.5 bg-[#05CC47] text-white font-bold rounded-2xs text-[10px]">
+                    marchmountain
+                  </span>
+                  <span className="text-gray-500 text-[10px]">(DeviantArt)</span>
+                </div>
+              </div>
+            </div>
+
+            <p className="text-gray-700 leading-relaxed text-[11px]">
+              Todos os ícones clássicos em altíssima definição (256×256) exibidos nesta interface foram recriados e disponibilizados pelo artista <strong>marchmountain</strong> no DeviantArt.
+            </p>
+
+            <a
+              href="https://www.deviantart.com/marchmountain/art/Windows-XP-High-Resolution-Icon-Pack-916042853"
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center space-x-1.5 px-3 py-1 bg-gradient-to-b from-[#F2F0E4] to-[#E3DFD0] hover:from-[#E3DFD0] hover:to-[#D5D0C0] border border-[#7A7565] rounded-xs font-semibold text-[#0B3A82] cursor-pointer shadow-2xs"
+            >
+              <span>Ver página no DeviantArt (marchmountain)</span>
+              <ExternalLink size={12} />
+            </a>
+
+            <div className="pt-2 border-t border-gray-300 text-gray-600 space-y-1 text-[10px]">
+              <p>• Efeitos Sonoros & Wallpaper Bliss: © Microsoft Corporation.</p>
+              <p>• Engenharia e Desenvolvimento Web: Pedro Cafure (cafureworks.link).</p>
             </div>
           </div>
         )}

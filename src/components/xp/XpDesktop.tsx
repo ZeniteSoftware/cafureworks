@@ -19,6 +19,7 @@ import { XpMinesweeper } from './XpMinesweeper';
 import { XpMediaPlayer } from './XpMediaPlayer';
 import { XpPaint } from './XpPaint';
 import { XpCalculator } from './XpCalculator';
+import { XpCredits } from './XpCredits';
 import { sounds } from '../../utils/sound';
 
 export const XpDesktop: React.FC = () => {
@@ -39,6 +40,7 @@ export const XpDesktop: React.FC = () => {
     openMediaPlayer,
     openPaint,
     openCalculator,
+    openCredits,
     arrangeIconsToGrid,
   } = useDesktop();
 
@@ -78,6 +80,7 @@ export const XpDesktop: React.FC = () => {
   const posCalc = getGridPosition(iconIndex++);
   const posNotepad = getGridPosition(iconIndex++);
   const posProjectManager = getGridPosition(iconIndex++);
+  const posCredits = getGridPosition(iconIndex++);
 
   // Custom user folders on desktop (if any)
   const desktopFolders = folders.filter((f) => f.showOnDesktop === true);
@@ -200,6 +203,16 @@ export const XpDesktop: React.FC = () => {
         onOpen={openProjectManager}
       />
 
+      {/* 10. Créditos & Recursos */}
+      <XpDesktopIcon
+        id="desktop-credits"
+        title="Créditos & Ícones"
+        icon="credits"
+        defaultX={posCredits.x}
+        defaultY={posCredits.y}
+        onOpen={openCredits}
+      />
+
       {/* Custom folders on Desktop (if any) */}
       {desktopFolders.map((folder, index) => (
         <XpDesktopIcon
@@ -267,6 +280,7 @@ export const XpDesktop: React.FC = () => {
             {win.type === 'media-player' && <XpMediaPlayer />}
             {win.type === 'paint' && <XpPaint />}
             {win.type === 'calc' && <XpCalculator />}
+            {win.type === 'credits' && <XpCredits />}
           </XpWindow>
         );
       })}
@@ -329,6 +343,15 @@ export const XpDesktop: React.FC = () => {
             className="w-full text-left px-4 py-1 hover:bg-[#316AC5] hover:text-white cursor-pointer"
           >
             Ver README.txt
+          </button>
+          <button
+            onClick={() => {
+              openCredits();
+              closeContextMenu();
+            }}
+            className="w-full text-left px-4 py-1 hover:bg-[#316AC5] hover:text-white cursor-pointer"
+          >
+            Créditos & Recursos...
           </button>
           <div className="h-[1px] bg-[#D4CEB8] my-1" />
           <button

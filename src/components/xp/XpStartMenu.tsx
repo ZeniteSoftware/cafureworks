@@ -20,6 +20,7 @@ export const XpStartMenu: React.FC = () => {
     openMediaPlayer,
     openPaint,
     openCalculator,
+    openCredits,
     projects,
   } = useDesktop();
 
@@ -284,6 +285,17 @@ export const XpStartMenu: React.FC = () => {
           >
             <HelpCircle size={16} className="text-blue-600" />
             <span>Ajuda e Suporte</span>
+          </button>
+
+          <button
+            onClick={() => {
+              openCredits();
+              setIsStartMenuOpen(false);
+            }}
+            className="flex items-center space-x-2 w-full p-1.5 rounded-xs hover:bg-[#316AC5] hover:text-white cursor-pointer text-left font-medium"
+          >
+            <XpIconRenderer icon="credits" size={16} />
+            <span>Créditos & Recursos</span>
           </button>
 
           <div className="h-[1px] bg-[#B5CDF2] my-1" />

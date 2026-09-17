@@ -366,6 +366,16 @@ export function useDesktopStore() {
     });
   };
 
+  const openCredits = () => {
+    openWindow({
+      id: 'app-credits',
+      title: 'Créditos & Recursos - Windows XP HD',
+      type: 'credits',
+      icon: 'credits',
+      defaultSize: { width: 500, height: 460 },
+    });
+  };
+
   const addProject = (item: ProjectItem) => {
     setProjects((prev) => {
       const updated = [item, ...prev];
@@ -554,6 +564,7 @@ export function useDesktopStore() {
     openMediaPlayer,
     openPaint,
     openCalculator,
+    openCredits,
     wallpaper,
     setWallpaper,
     isScreensaverActive,

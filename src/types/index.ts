@@ -12,7 +12,8 @@ export type WindowType =
   | 'minesweeper'
   | 'media-player'
   | 'paint'
-  | 'calc';
+  | 'calc'
+  | 'credits';
 
 export interface ProjectItem {
   id: string;

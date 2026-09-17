@@ -27,7 +27,7 @@ export const XpLoginScreen: React.FC = () => {
   return (
     <div
       style={{ fontFamily: 'Tahoma, "Segoe UI", sans-serif' }}
-      className="fixed inset-0 z-[99999] flex flex-col justify-between select-none overflow-hidden bg-[#0A327E] animate-crt-turn-on text-white"
+      className="fixed inset-0 z-[99999] flex flex-col justify-between select-none overflow-hidden bg-[#0A327E] text-white"
     >
       {/* Top Header Bar */}
       <div className="relative z-10 w-full h-16 md:h-20 bg-gradient-to-r from-[#001859] via-[#003399] to-[#001859] flex items-center justify-between px-6 md:px-12 shadow-md">

@@ -117,7 +117,13 @@ export const XpCredits: React.FC = () => {
             • <strong>Windows XP UI & Efeitos Sonoros:</strong> Microsoft Corporation (1985–2001).
           </p>
           <p>
-            • <strong>Papel de Parede Bliss:</strong> Fotografia original por Charles O'Rear no Vale de Napa, Califórnia.
+            • <strong>Assistentes Rover & Clippy:</strong> Microsoft Office XP & Windows XP Search Companion.
+          </p>
+          <p>
+            • <strong>UI Theme Sprites, Fontes & Cursores:</strong> Pack por NullTale (https://nulltale.itch.io/).
+          </p>
+          <p>
+            • <strong>Papéis de Parede Oficiais (Bliss, Ascent, etc.):</strong> Microsoft Corporation / Charles O'Rear.
           </p>
           <p>
             • <strong>Engenharia & Implementação Web:</strong> Pedro Cafure (cafureworks.link).

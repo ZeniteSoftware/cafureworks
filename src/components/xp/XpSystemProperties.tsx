@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { SYSTEM_SPECS } from '../../data/projects';
-import { WindowsFlagIcon, MyComputerIcon } from './XpIcons';
+import { MyComputerIcon } from './XpIcons';
 import { XpIconRenderer } from './XpIconRenderer';
 import { ExternalLink } from 'lucide-react';
 import { useDesktop } from '../../context/DesktopContext';
@@ -62,7 +62,12 @@ export const XpSystemProperties: React.FC = () => {
             {/* Top Row: Windows logo and System Name */}
             <div className="flex items-start space-x-4">
               <div className="shrink-0 p-1 bg-white/40 rounded-sm border border-gray-300">
-                <WindowsFlagIcon size={48} />
+                <img
+                  src="/logo/windows_xp_logo.png"
+                  alt="Windows XP"
+                  className="w-16 h-10 object-contain drop-shadow-xs select-none pointer-events-none"
+                  draggable={false}
+                />
               </div>
               <div className="space-y-1">
                 <p className="font-bold text-[12px] text-gray-900">{SYSTEM_SPECS.osName}</p>

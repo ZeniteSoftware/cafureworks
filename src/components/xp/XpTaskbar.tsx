@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useDesktop } from '../../context/DesktopContext';
-import { WindowsFlagIcon } from './XpIcons';
 import { XpIconRenderer } from './XpIconRenderer';
 import { Volume2, VolumeX, Shield, Monitor } from 'lucide-react';
 import { XpVolumePopup } from './XpVolumePopup';
@@ -102,7 +101,12 @@ export const XpTaskbar: React.FC = () => {
           }}
           className="relative h-full flex items-center space-x-1.5 pl-2.5 pr-4 rounded-r-xl border-r border-t border-emerald-300 hover:brightness-110 active:brightness-95 cursor-pointer text-white"
         >
-          <WindowsFlagIcon size={18} />
+          <img
+            src="/logo/WindowsLogo-small.png"
+            alt="Windows"
+            className="w-[20px] h-[16px] object-contain drop-shadow-sm select-none pointer-events-none"
+            draggable={false}
+          />
           <span
             style={{
               textShadow: '1px 1px 2px #104e10',

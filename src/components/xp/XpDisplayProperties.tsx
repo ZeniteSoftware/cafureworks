@@ -11,29 +11,30 @@ export interface WallpaperOption {
 }
 
 export const WALLPAPERS: WallpaperOption[] = [
-  {
-    id: 'bliss',
-    name: 'Bliss (Original Windows XP)',
-    src: '/windows_xp_wallpaper.jpg',
-  },
-  {
-    id: 'royal-blue',
-    name: 'Azul Windows XP (Clássico)',
-    src: '#004E98',
-    isColor: true,
-  },
-  {
-    id: 'navy-solid',
-    name: 'Azul Marinho Sólido',
-    src: '#0A246A',
-    isColor: true,
-  },
-  {
-    id: 'deep-slate',
-    name: 'Grafite Retrô',
-    src: '#2A3439',
-    isColor: true,
-  },
+  { id: 'bliss', name: 'Bliss (Padrão)', src: '/wallpapers/Bliss.png' },
+  { id: 'ascent', name: 'Ascent', src: '/wallpapers/Ascent.png' },
+  { id: 'autumn', name: 'Autumn', src: '/wallpapers/Autumn.png' },
+  { id: 'azul', name: 'Azul', src: '/wallpapers/Azul.png' },
+  { id: 'crystal', name: 'Crystal', src: '/wallpapers/Crystal.png' },
+  { id: 'follow', name: 'Follow', src: '/wallpapers/Follow.png' },
+  { id: 'friend', name: 'Friend', src: '/wallpapers/Friend.png' },
+  { id: 'home', name: 'Home', src: '/wallpapers/Home.png' },
+  { id: 'moon_flower', name: 'Moon Flower', src: '/wallpapers/Moon_flower.png' },
+  { id: 'peace', name: 'Peace', src: '/wallpapers/Peace.png' },
+  { id: 'power', name: 'Power', src: '/wallpapers/Power.png' },
+  { id: 'purple_flower', name: 'Purple Flower', src: '/wallpapers/Purple_flower.png' },
+  { id: 'radiance', name: 'Radiance', src: '/wallpapers/Radiance.png' },
+  { id: 'red_moon_desert', name: 'Red Moon Desert', src: '/wallpapers/Red_moon_desert.png' },
+  { id: 'ripple', name: 'Ripple', src: '/wallpapers/Ripple.png' },
+  { id: 'stonehenge', name: 'Stonehenge', src: '/wallpapers/Stonehenge.png' },
+  { id: 'tulips', name: 'Tulips', src: '/wallpapers/Tulips.png' },
+  { id: 'vortec_space', name: 'Vortec Space', src: '/wallpapers/Vortec_space.png' },
+  { id: 'wind', name: 'Wind', src: '/wallpapers/Wind.png' },
+  { id: 'xp_home', name: 'Windows XP Home Edition', src: '/wallpapers/Windows_XP_Home_Edition.png' },
+  { id: 'xp_pro', name: 'Windows XP Professional', src: '/wallpapers/Windows_XP_Professional.png' },
+  { id: 'royal-blue', name: 'Azul Windows XP (Sólido)', src: '#004E98', isColor: true },
+  { id: 'navy-solid', name: 'Azul Marinho Sólido', src: '#0A246A', isColor: true },
+  { id: 'deep-slate', name: 'Grafite Retrô', src: '#2A3439', isColor: true },
 ];
 
 export const XpDisplayProperties: React.FC = () => {

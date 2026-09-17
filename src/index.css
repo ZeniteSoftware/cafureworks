@@ -1,10 +1,41 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: 'Tahoma';
+  src: url('/fonts/tahoma.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Franklin Gothic Medium';
+  src: url('/fonts/framdit.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 :root {
-  font-family: Tahoma, 'Segoe UI', Geneva, Verdana, sans-serif;
+  font-family: 'Tahoma', 'Segoe UI', Geneva, Verdana, sans-serif;
   user-select: none;
   -webkit-user-select: none;
   overflow: hidden;
+  cursor: url('/cursors/default_arrow.png'), default;
+}
+
+button, a, [role="button"], .cursor-pointer {
+  cursor: url('/cursors/default_link.png'), pointer !important;
+}
+
+input[type="text"], input[type="password"], textarea, [contenteditable="true"] {
+  cursor: url('/cursors/default_ibeam.png'), text !important;
+}
+
+.cursor-move {
+  cursor: url('/cursors/default_move.png'), move !important;
+}
+
+.cursor-wait {
+  cursor: url('/cursors/default_busy.png'), wait !important;
 }
 
 html, body, #root {
@@ -19,6 +50,7 @@ html, body, #root {
   right: 0;
   bottom: 0;
   background-color: #004e98;
+  cursor: url('/cursors/default_arrow.png'), default;
 }
 
 /* Classic Windows XP Scrollbar */

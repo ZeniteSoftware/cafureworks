@@ -1,6 +1,5 @@
 import React from 'react';
 import { useDesktop } from '../../context/DesktopContext';
-import { WindowsFlagIcon } from './XpIcons';
 import { Power, ArrowRight, Loader2 } from 'lucide-react';
 import { sounds } from '../../utils/sound';
 
@@ -33,23 +32,15 @@ export const XpLoginScreen: React.FC = () => {
       <div className="relative z-10 w-full h-16 md:h-20 bg-gradient-to-r from-[#001859] via-[#003399] to-[#001859] flex items-center justify-between px-6 md:px-12 shadow-md">
         {/* Windows XP Brand Logo */}
         <div className="flex items-center space-x-3">
-          <WindowsFlagIcon size={36} className="drop-shadow-md" />
-          <div className="flex flex-col">
-            <span className="text-[10px] text-gray-300 font-sans tracking-wide">
-              Microsoft®
-            </span>
-            <div className="flex items-baseline leading-none">
-              <span className="text-xl md:text-2xl font-bold tracking-tight text-white drop-shadow">
-                Windows
-              </span>
-              <span className="text-xl md:text-2xl font-bold text-amber-500 italic ml-1 drop-shadow">
-                XP
-              </span>
-              <span className="text-[10px] text-blue-200 ml-2 font-medium">
-                Professional
-              </span>
-            </div>
-          </div>
+          <img
+            src="/logo/windows_xp_logo.png"
+            alt="Microsoft Windows XP"
+            className="h-10 md:h-12 object-contain drop-shadow-md select-none pointer-events-none"
+            draggable={false}
+          />
+          <span className="text-xs text-blue-200 font-semibold hidden md:inline">
+            Professional
+          </span>
         </div>
 
         {/* Portal Host Badge */}

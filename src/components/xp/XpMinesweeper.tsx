@@ -206,78 +206,113 @@ export const XpMinesweeper: React.FC = () => {
   );
   const remainingMines = Math.max(-99, TOTAL_MINES - flaggedCount);
 
-  // Number colors
-  const getNumberColor = (num: number) => {
-    switch (num) {
-      case 1: return '#0000FF';
-      case 2: return '#008000';
-      case 3: return '#FF0000';
-      case 4: return '#000080';
-      case 5: return '#800000';
-      case 6: return '#008080';
-      case 7: return '#000000';
-      case 8: return '#808080';
-      default: return '#000000';
+  // Helper to render 3-digit 7-segment display
+  const renderDigitalDisplay = (value: number) => {
+    const clamped = Math.max(-99, Math.min(999, value));
+    let str = '';
+    if (clamped < 0) {
+      str = '-' + String(Math.abs(clamped)).padStart(2, '0');
+    } else {
+      str = String(clamped).padStart(3, '0');
     }
+    return (
+      <div className="flex bg-black p-[1px] border border-[#808080] border-b-[#FFFFFF] border-r-[#FFFFFF]">
+        {str.split('').map((ch, idx) => {
+          const src = ch === '-' ? '/minesweeper/digit_minus.png' : `/minesweeper/digit_${ch}.png`;
+          return (
+            <img
+              key={idx}
+              src={src}
+              alt={ch}
+              className="w-[13px] h-[23px] select-none pointer-events-none"
+              style={{ imageRendering: 'pixelated' }}
+              draggable={false}
+            />
+          );
+        })}
+      </div>
+    );
+  };
+
+  const getFaceSrc = () => {
+    if (gameWon) return '/minesweeper/face_win.png';
+    if (gameOver) return '/minesweeper/face_dead.png';
+    if (isMousePressing) return '/minesweeper/face_shocked.png';
+    return '/minesweeper/face_smile.png';
+  };
+
+  const getCellSrc = (cell: Cell) => {
+    if (cell.isRevealed) {
+      if (cell.isMine) {
+        return '/minesweeper/cell_mine_exploded.png';
+      }
+      return `/minesweeper/cell_${cell.neighborMines}.png`;
+    }
+    if (cell.isFlagged) {
+      if (gameOver && !cell.isMine) {
+        return '/minesweeper/cell_mine_wrong.png';
+      }
+      return '/minesweeper/cell_flag.png';
+    }
+    if (gameOver && cell.isMine) {
+      return '/minesweeper/cell_mine.png';
+    }
+    return '/minesweeper/cell_unrevealed.png';
   };
 
   return (
     <div className="flex flex-col items-center justify-center p-3 bg-[#C0C0C0] select-none font-sans">
       {/* Outer Border Bevel */}
-      <div className="border-4 border-[#FFFFFF] border-r-[#808080] border-b-[#808080] p-2 bg-[#C0C0C0]">
+      <div className="border-3 border-[#FFFFFF] border-r-[#808080] border-b-[#808080] p-1.5 bg-[#C0C0C0]">
         
         {/* Top Control Bar with 7-Segment Counters & Face */}
-        <div className="flex items-center justify-between px-2 py-1.5 mb-2 bg-[#C0C0C0] border-2 border-[#808080] border-r-[#FFFFFF] border-b-[#FFFFFF]">
+        <div className="flex items-center justify-between px-2 py-1 mb-1.5 bg-[#C0C0C0] border-2 border-[#808080] border-r-[#FFFFFF] border-b-[#FFFFFF]">
           {/* Mine Counter */}
-          <div className="bg-black text-red-600 font-mono text-xl font-bold px-1 py-0.5 rounded-2xs tracking-widest leading-none border border-gray-600 shadow-inner">
-            {String(remainingMines).padStart(3, '0')}
-          </div>
+          {renderDigitalDisplay(remainingMines)}
 
           {/* Smiley Face Button */}
           <button
             onClick={initGame}
-            className="w-7 h-7 bg-[#C0C0C0] border-2 border-[#FFFFFF] border-r-[#808080] border-b-[#808080] active:border-[#808080] active:border-r-[#FFFFFF] active:border-b-[#FFFFFF] flex items-center justify-center text-lg cursor-pointer rounded-2xs shadow-xs"
+            title="Reiniciar Jogo"
+            className="w-[26px] h-[26px] bg-[#C0C0C0] border-2 border-[#FFFFFF] border-r-[#808080] border-b-[#808080] active:border-[#808080] active:border-r-[#FFFFFF] active:border-b-[#FFFFFF] flex items-center justify-center cursor-pointer p-0 shadow-xs"
           >
-            {gameWon ? '😎' : gameOver ? '😵' : isMousePressing ? '😮' : '🙂'}
+            <img
+              src={getFaceSrc()}
+              alt="face"
+              className="w-[24px] h-[24px] select-none pointer-events-none"
+              style={{ imageRendering: 'pixelated' }}
+              draggable={false}
+            />
           </button>
 
           {/* Time Counter */}
-          <div className="bg-black text-red-600 font-mono text-xl font-bold px-1 py-0.5 rounded-2xs tracking-widest leading-none border border-gray-600 shadow-inner">
-            {String(timer).padStart(3, '0')}
-          </div>
+          {renderDigitalDisplay(timer)}
         </div>
 
         {/* 9x9 Minefield Grid */}
         <div
           onMouseDown={() => setIsMousePressing(true)}
           onMouseUp={() => setIsMousePressing(false)}
-          className="border-3 border-[#808080] border-r-[#FFFFFF] border-b-[#FFFFFF] grid grid-cols-9 bg-[#7B7B7B]"
+          className="border-3 border-[#808080] border-r-[#FFFFFF] border-b-[#FFFFFF] grid grid-cols-9 bg-[#C0C0C0]"
+          style={{ imageRendering: 'pixelated' }}
         >
           {grid.map((row, r) =>
-            row.map((cell, c) => {
-              if (cell.isRevealed) {
-                return (
-                  <div
-                    key={`${r}-${c}`}
-                    className="w-6 h-6 border border-[#7B7B7B] bg-[#C0C0C0] flex items-center justify-center text-xs font-bold font-mono"
-                    style={{ color: getNumberColor(cell.neighborMines) }}
-                  >
-                    {cell.isMine ? '💣' : cell.neighborMines > 0 ? cell.neighborMines : ''}
-                  </div>
-                );
-              }
-
-              return (
-                <button
-                  key={`${r}-${c}`}
-                  onClick={() => revealCell(r, c)}
-                  onContextMenu={(e) => handleContextMenu(e, r, c)}
-                  className="w-6 h-6 border-2 border-[#FFFFFF] border-r-[#7B7B7B] border-b-[#7B7B7B] active:border-1 active:border-[#7B7B7B] bg-[#C0C0C0] flex items-center justify-center text-xs cursor-pointer"
-                >
-                  {cell.isFlagged ? '🚩' : ''}
-                </button>
-              );
-            })
+            row.map((cell, c) => (
+              <div
+                key={`${r}-${c}`}
+                onClick={() => revealCell(r, c)}
+                onContextMenu={(e) => handleContextMenu(e, r, c)}
+                className="w-[20px] h-[20px] cursor-pointer flex items-center justify-center"
+              >
+                <img
+                  src={getCellSrc(cell)}
+                  alt="tile"
+                  className="w-[20px] h-[20px] select-none pointer-events-none"
+                  style={{ imageRendering: 'pixelated' }}
+                  draggable={false}
+                />
+              </div>
+            ))
           )}
         </div>
 

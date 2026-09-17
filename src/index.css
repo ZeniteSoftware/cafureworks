@@ -19,23 +19,27 @@
   user-select: none;
   -webkit-user-select: none;
   overflow: hidden;
-  cursor: url('/cursors/default_arrow.png'), default;
+  cursor: url('/cursors/xp_arrow.png') 0 0, default;
+}
+
+* {
+  cursor: url('/cursors/xp_arrow.png') 0 0, default;
 }
 
 button, a, [role="button"], .cursor-pointer {
-  cursor: url('/cursors/default_link.png'), pointer !important;
+  cursor: url('/cursors/xp_link.png') 5 0, pointer !important;
 }
 
 input[type="text"], input[type="password"], textarea, [contenteditable="true"] {
-  cursor: url('/cursors/default_ibeam.png'), text !important;
+  cursor: url('/cursors/xp_ibeam.png') 4 8, text !important;
 }
 
 .cursor-move {
-  cursor: url('/cursors/default_move.png'), move !important;
+  cursor: url('/cursors/xp_move.png') 10 10, move !important;
 }
 
 .cursor-wait {
-  cursor: url('/cursors/default_busy.png'), wait !important;
+  cursor: url('/cursors/xp_wait.png') 16 15, wait !important;
 }
 
 html, body, #root {
@@ -50,7 +54,7 @@ html, body, #root {
   right: 0;
   bottom: 0;
   background-color: #004e98;
-  cursor: url('/cursors/default_arrow.png'), default;
+  cursor: url('/cursors/xp_arrow.png') 0 0, default;
 }
 
 /* Classic Windows XP Scrollbar */

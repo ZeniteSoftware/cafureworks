@@ -7,6 +7,7 @@ const STORAGE_PROJECTS = 'cafure_xp_projects';
 const STORAGE_FOLDERS = 'cafure_xp_folders';
 const STORAGE_POSITIONS = 'cafure_xp_icon_positions';
 const STORAGE_SOUND = 'cafure_xp_sound';
+const STORAGE_RECYCLED = 'cafure_xp_recycled';
 
 export function useDesktopStore() {
   const [systemState, setSystemState] = useState<SystemState>('off');
@@ -17,6 +18,16 @@ export function useDesktopStore() {
   const [isSoundEnabled, setIsSoundEnabled] = useState<boolean>(true);
   const [selectedIconId, setSelectedIconId] = useState<string | null>(null);
   const [nextZIndex, setNextZIndex] = useState<number>(10);
+
+  // Recycled items state
+  const [recycledProjects, setRecycledProjects] = useState<ProjectItem[]>(() => {
+    try {
+      const saved = localStorage.getItem(STORAGE_RECYCLED);
+      return saved ? JSON.parse(saved) : [];
+    } catch {
+      return [];
+    }
+  });
 
   // Projects & Folders
   const [projects, setProjects] = useState<ProjectItem[]>(() => {
@@ -282,6 +293,7 @@ export function useDesktopStore() {
 
   const deleteProject = (id: string) => {
     sounds.playRecycle();
+    const itemToDelete = projects.find((p) => p.id === id);
     setProjects((prev) => {
       const updated = prev.filter((p) => p.id !== id);
       try {
@@ -291,6 +303,53 @@ export function useDesktopStore() {
       }
       return updated;
     });
+
+    if (itemToDelete) {
+      setRecycledProjects((prev) => {
+        const updated = [itemToDelete, ...prev.filter((p) => p.id !== id)];
+        try {
+          localStorage.setItem(STORAGE_RECYCLED, JSON.stringify(updated));
+        } catch {
+          // Ignore
+        }
+        return updated;
+      });
+    }
+  };
+
+  const emptyRecycleBin = () => {
+    sounds.playRecycle();
+    setRecycledProjects([]);
+    try {
+      localStorage.removeItem(STORAGE_RECYCLED);
+    } catch {
+      // Ignore
+    }
+  };
+
+  const restoreProject = (id: string) => {
+    sounds.playDing();
+    const itemToRestore = recycledProjects.find((p) => p.id === id);
+    if (itemToRestore) {
+      setRecycledProjects((prev) => {
+        const updated = prev.filter((p) => p.id !== id);
+        try {
+          localStorage.setItem(STORAGE_RECYCLED, JSON.stringify(updated));
+        } catch {
+          // Ignore
+        }
+        return updated;
+      });
+      setProjects((prev) => {
+        const updated = [itemToRestore, ...prev.filter((p) => p.id !== id)];
+        try {
+          localStorage.setItem(STORAGE_PROJECTS, JSON.stringify(updated));
+        } catch {
+          // Ignore
+        }
+        return updated;
+      });
+    }
   };
 
   const addFolder = (folder: FolderItem) => {
@@ -403,6 +462,9 @@ export function useDesktopStore() {
     openProjectManager,
     addProject,
     deleteProject,
+    recycledProjects,
+    emptyRecycleBin,
+    restoreProject,
     addFolder,
     resetToDefaults,
   };

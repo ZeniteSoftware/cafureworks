@@ -12,6 +12,7 @@ import { XpNotepad } from './XpNotepad';
 import { XpSystemProperties } from './XpSystemProperties';
 import { XpProjectManager } from './XpProjectManager';
 import { XpBrowser } from './XpBrowser';
+import { XpRecycleBin } from './XpRecycleBin';
 import { sounds } from '../../utils/sound';
 
 export const XpDesktop: React.FC = () => {
@@ -192,24 +193,7 @@ export const XpDesktop: React.FC = () => {
             {win.type === 'browser' && (
               <XpBrowser initialUrl={win.data?.browserUrl} />
             )}
-            {win.type === 'recycle-bin' && (
-              <div className="flex flex-col items-center justify-center h-full p-6 text-center select-none bg-white">
-                <div className="w-16 h-16 mb-3">
-                  <XpDesktopIcon
-                    id="inner-bin"
-                    title=""
-                    icon="recycle-bin"
-                    defaultX={0}
-                    defaultY={0}
-                    onOpen={() => {}}
-                  />
-                </div>
-                <h3 className="font-bold text-gray-800 text-sm">A Lixeira está vazia.</h3>
-                <p className="text-gray-500 text-xs mt-1 max-w-sm">
-                  Nenhum projeto foi descartado. Todos os seus subdomínios em cafureworks.link estão seguros e online!
-                </p>
-              </div>
-            )}
+            {win.type === 'recycle-bin' && <XpRecycleBin />}
           </XpWindow>
         );
       })}

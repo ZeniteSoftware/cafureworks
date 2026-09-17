@@ -11,6 +11,12 @@ import {
   SystemPropertiesIcon,
   ProjectManagerIcon,
   GitHubIcon,
+  CmdIcon,
+  DisplayPropertiesIcon,
+  MinesweeperIcon,
+  MediaPlayerIcon,
+  PaintIcon,
+  CalcIcon,
 } from './XpIcons';
 
 interface XpIconRendererProps {
@@ -46,9 +52,22 @@ export const XpIconRenderer: React.FC<XpIconRendererProps> = ({
     case 'recycle-bin':
       return <RecycleBinIcon size={size} className={className} />;
     case 'internet-explorer':
+    case 'browser':
       return <InternetExplorerIcon size={size} className={className} />;
     case 'notepad':
       return <NotepadIcon size={size} className={className} />;
+    case 'cmd':
+      return <CmdIcon size={size} className={className} />;
+    case 'display-properties':
+      return <DisplayPropertiesIcon size={size} className={className} />;
+    case 'minesweeper':
+      return <MinesweeperIcon size={size} className={className} />;
+    case 'media-player':
+      return <MediaPlayerIcon size={size} className={className} />;
+    case 'paint':
+      return <PaintIcon size={size} className={className} />;
+    case 'calc':
+      return <CalcIcon size={size} className={className} />;
     case 'prisma':
       return <PrismaIcon size={size} className={className} />;
     case 'api-bot':
@@ -63,3 +82,4 @@ export const XpIconRenderer: React.FC<XpIconRendererProps> = ({
       return <FolderIcon size={size} className={className} />;
   }
 };
+

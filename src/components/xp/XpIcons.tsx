@@ -284,3 +284,100 @@ export const GitHubIcon: React.FC<IconProps> = ({ className = '', size = 32 }) =
     <path d="M24 10C16.3 10 10 16.3 10 24C10 30.2 14 35.4 19.6 37.3C20.3 37.4 20.6 37 20.6 36.6C20.6 36.2 20.6 34.9 20.6 33.5C16.7 34.3 15.9 31.8 15.9 31.8C15.3 30.2 14.4 29.8 14.4 29.8C13.1 28.9 14.5 28.9 14.5 28.9C15.9 29 16.7 30.3 16.7 30.3C18 32.5 20.1 31.9 20.9 31.5C21 30.5 21.4 29.8 21.9 29.4C18.8 29 15.5 27.8 15.5 22.3C15.5 20.7 16 19.4 17 18.4C16.8 18 16.3 16.5 17.1 14.6C17.1 14.6 18.3 14.2 21 16C22.2 15.7 23.4 15.5 24.7 15.5C25.9 15.5 27.2 15.7 28.3 16C31 14.2 32.2 14.6 32.2 14.6C33.1 16.5 32.5 18 32.4 18.4C33.3 19.4 33.9 20.7 33.9 22.3C33.9 27.8 30.5 29 27.4 29.4C28 29.9 28.5 30.9 28.5 32.4C28.5 34.6 28.5 36.3 28.5 36.6C28.5 37 28.8 37.4 29.5 37.3C35.1 35.4 39.1 30.2 39.1 24C39.1 16.3 32.8 10 24 10Z" fill="white" />
   </svg>
 );
+
+export const CmdIcon: React.FC<IconProps> = ({ className = '', size = 32 }) => (
+  <svg width={size} height={size} viewBox="0 0 48 48" fill="none" className={className}>
+    {/* Console Window */}
+    <rect x="6" y="8" width="36" height="32" rx="2" fill="#0C0C0C" stroke="#7F9DB9" strokeWidth="1.5" />
+    <rect x="6" y="8" width="36" height="7" fill="#0A246A" />
+    <circle cx="10" cy="11.5" r="1.5" fill="#FFF" />
+    <path d="M12 21L17 25L12 29" stroke="#00FF66" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+    <line x1="19" y1="29" x2="26" y2="29" stroke="#00FF66" strokeWidth="2" strokeLinecap="round" />
+  </svg>
+);
+
+export const DisplayPropertiesIcon: React.FC<IconProps> = ({ className = '', size = 32 }) => (
+  <svg width={size} height={size} viewBox="0 0 48 48" fill="none" className={className}>
+    <MyComputerIcon size={size} className={className} />
+    {/* Color Palette Overlay */}
+    <circle cx="36" cy="34" r="8" fill="#F8B83D" stroke="#8A4E08" strokeWidth="1.2" />
+    <circle cx="33" cy="32" r="1.5" fill="#D92800" />
+    <circle cx="36" cy="30" r="1.5" fill="#005BBB" />
+    <circle cx="39" cy="33" r="1.5" fill="#439800" />
+  </svg>
+);
+
+export const MinesweeperIcon: React.FC<IconProps> = ({ className = '', size = 32 }) => (
+  <svg width={size} height={size} viewBox="0 0 48 48" fill="none" className={className}>
+    {/* Classic Bomb */}
+    <circle cx="24" cy="26" r="14" fill="#222" stroke="#444" strokeWidth="1.5" />
+    <circle cx="20" cy="22" r="3.5" fill="#FFF" fillOpacity="0.4" />
+    {/* Spikes */}
+    <line x1="24" y1="8" x2="24" y2="12" stroke="#222" strokeWidth="3" strokeLinecap="round" />
+    <line x1="24" y1="40" x2="24" y2="44" stroke="#222" strokeWidth="3" strokeLinecap="round" />
+    <line x1="6" y1="26" x2="10" y2="26" stroke="#222" strokeWidth="3" strokeLinecap="round" />
+    <line x1="38" y1="26" x2="42" y2="26" stroke="#222" strokeWidth="3" strokeLinecap="round" />
+    <line x1="11" y1="13" x2="14" y2="16" stroke="#222" strokeWidth="3" strokeLinecap="round" />
+    <line x1="34" y1="36" x2="37" y2="39" stroke="#222" strokeWidth="3" strokeLinecap="round" />
+    {/* Red / Yellow Spark on top */}
+    <path d="M24 8C24 5 28 4 30 2" stroke="#D92800" strokeWidth="2" strokeLinecap="round" />
+    <circle cx="30" cy="2" r="2.5" fill="#FFDC33" />
+  </svg>
+);
+
+export const MediaPlayerIcon: React.FC<IconProps> = ({ className = '', size = 32 }) => (
+  <svg width={size} height={size} viewBox="0 0 48 48" fill="none" className={className}>
+    {/* Disc / Blue Ring */}
+    <circle cx="24" cy="24" r="18" fill="url(#wmp-grad)" stroke="#1952AB" strokeWidth="1.5" />
+    <circle cx="24" cy="24" r="11" fill="#FF8C00" stroke="#CC6600" strokeWidth="1" />
+    {/* Play Triangle */}
+    <polygon points="22,18 30,24 22,30" fill="white" stroke="#CC5500" strokeWidth="0.8" />
+    <defs>
+      <linearGradient id="wmp-grad" x1="8" y1="8" x2="40" y2="40" gradientUnits="userSpaceOnUse">
+        <stop stopColor="#458BF5" />
+        <stop offset="1" stopColor="#0B42A1" />
+      </linearGradient>
+    </defs>
+  </svg>
+);
+
+export const PaintIcon: React.FC<IconProps> = ({ className = '', size = 32 }) => (
+  <svg width={size} height={size} viewBox="0 0 48 48" fill="none" className={className}>
+    {/* Palette */}
+    <path d="M10 24C10 14 18 8 28 8C38 8 42 16 38 24C35 30 28 32 28 36C28 39 30 40 28 40C20 40 10 34 10 24Z" fill="#F4E2C7" stroke="#A88B60" strokeWidth="1.5" />
+    <circle cx="20" cy="16" r="2.5" fill="#D92800" />
+    <circle cx="28" cy="14" r="2.5" fill="#005BBB" />
+    <circle cx="34" cy="19" r="2.5" fill="#439800" />
+    <circle cx="32" cy="26" r="2.5" fill="#FFDC33" />
+    {/* Paint Brush */}
+    <path d="M16 42L36 22" stroke="#8A4E08" strokeWidth="3" strokeLinecap="round" />
+    <path d="M36 22L40 18" stroke="#D92800" strokeWidth="4" strokeLinecap="round" />
+  </svg>
+);
+
+export const CalcIcon: React.FC<IconProps> = ({ className = '', size = 32 }) => (
+  <svg width={size} height={size} viewBox="0 0 48 48" fill="none" className={className}>
+    {/* Casing */}
+    <rect x="10" y="8" width="28" height="34" rx="3" fill="#D4D0C8" stroke="#808080" strokeWidth="1.5" />
+    {/* LCD Display */}
+    <rect x="14" y="12" width="20" height="7" rx="1" fill="#E2EFE2" stroke="#7F9DB9" strokeWidth="1" />
+    <text x="31" y="18" fill="#1C381C" fontSize="6" fontFamily="monospace" textAnchor="end" fontWeight="bold">0.</text>
+    {/* Buttons Grid */}
+    <rect x="14" y="22" width="4" height="3" fill="#ECE9D8" stroke="#808080" strokeWidth="0.6" />
+    <rect x="19" y="22" width="4" height="3" fill="#ECE9D8" stroke="#808080" strokeWidth="0.6" />
+    <rect x="24" y="22" width="4" height="3" fill="#ECE9D8" stroke="#808080" strokeWidth="0.6" />
+    <rect x="29" y="22" width="5" height="3" fill="#C3D9FF" stroke="#0055EA" strokeWidth="0.6" />
+    <rect x="14" y="27" width="4" height="3" fill="#ECE9D8" stroke="#808080" strokeWidth="0.6" />
+    <rect x="19" y="27" width="4" height="3" fill="#ECE9D8" stroke="#808080" strokeWidth="0.6" />
+    <rect x="24" y="27" width="4" height="3" fill="#ECE9D8" stroke="#808080" strokeWidth="0.6" />
+    <rect x="29" y="27" width="5" height="3" fill="#C3D9FF" stroke="#0055EA" strokeWidth="0.6" />
+    <rect x="14" y="32" width="4" height="3" fill="#ECE9D8" stroke="#808080" strokeWidth="0.6" />
+    <rect x="19" y="32" width="4" height="3" fill="#ECE9D8" stroke="#808080" strokeWidth="0.6" />
+    <rect x="24" y="32" width="4" height="3" fill="#ECE9D8" stroke="#808080" strokeWidth="0.6" />
+    <rect x="29" y="32" width="5" height="3" fill="#FFCCCC" stroke="#CC0000" strokeWidth="0.6" />
+    <rect x="14" y="37" width="9" height="3" fill="#ECE9D8" stroke="#808080" strokeWidth="0.6" />
+    <rect x="24" y="37" width="4" height="3" fill="#ECE9D8" stroke="#808080" strokeWidth="0.6" />
+    <rect x="29" y="37" width="5" height="3" fill="#C3D9FF" stroke="#0055EA" strokeWidth="0.6" />
+  </svg>
+);
+

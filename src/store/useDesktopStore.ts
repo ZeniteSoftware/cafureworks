@@ -8,6 +8,7 @@ const STORAGE_FOLDERS = 'cafure_xp_folders';
 const STORAGE_POSITIONS = 'cafure_xp_icon_positions';
 const STORAGE_SOUND = 'cafure_xp_sound';
 const STORAGE_RECYCLED = 'cafure_xp_recycled';
+const STORAGE_WALLPAPER = 'cafure_xp_wallpaper';
 
 export function useDesktopStore() {
   const [systemState, setSystemState] = useState<SystemState>('off');
@@ -18,6 +19,33 @@ export function useDesktopStore() {
   const [isSoundEnabled, setIsSoundEnabled] = useState<boolean>(true);
   const [selectedIconId, setSelectedIconId] = useState<string | null>(null);
   const [nextZIndex, setNextZIndex] = useState<number>(10);
+  const [isScreensaverActive, setIsScreensaverActive] = useState<boolean>(false);
+
+  const [wallpaper, setWallpaperState] = useState<string>(() => {
+    try {
+      const saved = localStorage.getItem(STORAGE_WALLPAPER);
+      return saved || '/windows_xp_wallpaper.jpg';
+    } catch {
+      return '/windows_xp_wallpaper.jpg';
+    }
+  });
+
+  const setWallpaper = (wp: string) => {
+    setWallpaperState(wp);
+    try {
+      localStorage.setItem(STORAGE_WALLPAPER, wp);
+    } catch {
+      // Ignore
+    }
+  };
+
+  const triggerScreensaver = () => {
+    setIsScreensaverActive(true);
+  };
+
+  const dismissScreensaver = () => {
+    setIsScreensaverActive(false);
+  };
 
   // Recycled items state
   const [recycledProjects, setRecycledProjects] = useState<ProjectItem[]>(() => {
@@ -278,6 +306,66 @@ export function useDesktopStore() {
     });
   };
 
+  const openCmd = () => {
+    openWindow({
+      id: 'app-cmd',
+      title: 'Prompt de comando',
+      type: 'cmd',
+      icon: 'cmd',
+      defaultSize: { width: 660, height: 420 },
+    });
+  };
+
+  const openDisplayProperties = () => {
+    openWindow({
+      id: 'app-display-properties',
+      title: 'Propriedades de Vídeo',
+      type: 'display-properties',
+      icon: 'display-properties',
+      defaultSize: { width: 440, height: 490 },
+    });
+  };
+
+  const openMinesweeper = () => {
+    openWindow({
+      id: 'app-minesweeper',
+      title: 'Campo Minado',
+      type: 'minesweeper',
+      icon: 'minesweeper',
+      defaultSize: { width: 220, height: 325 },
+    });
+  };
+
+  const openMediaPlayer = () => {
+    openWindow({
+      id: 'app-media-player',
+      title: 'Windows Media Player',
+      type: 'media-player',
+      icon: 'media-player',
+      defaultSize: { width: 560, height: 480 },
+    });
+  };
+
+  const openPaint = () => {
+    openWindow({
+      id: 'app-paint',
+      title: 'sem título - Paint',
+      type: 'paint',
+      icon: 'paint',
+      defaultSize: { width: 720, height: 520 },
+    });
+  };
+
+  const openCalculator = () => {
+    openWindow({
+      id: 'app-calc',
+      title: 'Calculadora',
+      type: 'calc',
+      icon: 'calc',
+      defaultSize: { width: 250, height: 330 },
+    });
+  };
+
   const addProject = (item: ProjectItem) => {
     setProjects((prev) => {
       const updated = [item, ...prev];
@@ -460,6 +548,17 @@ export function useDesktopStore() {
     openNotepad,
     openSystemProperties,
     openProjectManager,
+    openCmd,
+    openDisplayProperties,
+    openMinesweeper,
+    openMediaPlayer,
+    openPaint,
+    openCalculator,
+    wallpaper,
+    setWallpaper,
+    isScreensaverActive,
+    triggerScreensaver,
+    dismissScreensaver,
     addProject,
     deleteProject,
     recycledProjects,

@@ -14,6 +14,12 @@ export const XpStartMenu: React.FC = () => {
     openProjectManager,
     openFolderWindow,
     openProject,
+    openCmd,
+    openDisplayProperties,
+    openMinesweeper,
+    openMediaPlayer,
+    openPaint,
+    openCalculator,
     projects,
   } = useDesktop();
 
@@ -36,7 +42,7 @@ export const XpStartMenu: React.FC = () => {
 
   if (!isStartMenuOpen) return null;
 
-  const pinnedProjects = projects.slice(0, 5);
+  const pinnedProjects = projects.slice(0, 4);
 
   return (
     <div
@@ -45,7 +51,7 @@ export const XpStartMenu: React.FC = () => {
         boxShadow: '4px -4px 15px rgba(0, 0, 0, 0.4), 0 0 0 1px #0A327E',
         fontFamily: 'Tahoma, "Segoe UI", sans-serif',
       }}
-      className="fixed bottom-[30px] left-0 z-[9999] w-80 sm:w-96 rounded-t-md overflow-hidden bg-white border border-[#0A327E] flex flex-col select-none text-[11px]"
+      className="fixed bottom-[30px] left-0 z-[9999] w-80 sm:w-[420px] rounded-t-md overflow-hidden bg-white border border-[#0A327E] flex flex-col select-none text-[11px]"
     >
       {/* Top Header: User Profile Banner */}
       <div
@@ -69,8 +75,98 @@ export const XpStartMenu: React.FC = () => {
       {/* Main Two-Column Body */}
       <div className="flex flex-row border-b border-[#0A327E]">
         {/* Left Column: Apps & Projects (White background) */}
-        <div className="w-1/2 p-2 space-y-1 bg-white border-r border-[#D3E5FA]">
-          {/* Pinned Core Apps */}
+        <div className="w-1/2 p-2 space-y-1 bg-white border-r border-[#D3E5FA] max-h-[420px] overflow-y-auto">
+          {/* Pinned Core XP Programs */}
+          <button
+            onClick={() => {
+              openMediaPlayer();
+              setIsStartMenuOpen(false);
+            }}
+            className="flex items-center space-x-2 w-full p-1.5 rounded-xs hover:bg-[#316AC5] hover:text-white cursor-pointer group text-left"
+          >
+            <XpIconRenderer icon="media-player" size={24} />
+            <div className="overflow-hidden">
+              <p className="font-bold text-gray-900 group-hover:text-white truncate">
+                Windows Media Player
+              </p>
+              <p className="text-[9px] text-gray-500 group-hover:text-blue-100 truncate">
+                Reprodutor de Mídia
+              </p>
+            </div>
+          </button>
+
+          <button
+            onClick={() => {
+              openPaint();
+              setIsStartMenuOpen(false);
+            }}
+            className="flex items-center space-x-2 w-full p-1.5 rounded-xs hover:bg-[#316AC5] hover:text-white cursor-pointer group text-left"
+          >
+            <XpIconRenderer icon="paint" size={24} />
+            <div className="overflow-hidden">
+              <p className="font-bold text-gray-900 group-hover:text-white truncate">
+                Paint
+              </p>
+              <p className="text-[9px] text-gray-500 group-hover:text-blue-100 truncate">
+                Editor de Desenho
+              </p>
+            </div>
+          </button>
+
+          <button
+            onClick={() => {
+              openCalculator();
+              setIsStartMenuOpen(false);
+            }}
+            className="flex items-center space-x-2 w-full p-1.5 rounded-xs hover:bg-[#316AC5] hover:text-white cursor-pointer group text-left"
+          >
+            <XpIconRenderer icon="calc" size={24} />
+            <div className="overflow-hidden">
+              <p className="font-bold text-gray-900 group-hover:text-white truncate">
+                Calculadora
+              </p>
+              <p className="text-[9px] text-gray-500 group-hover:text-blue-100 truncate">
+                Cálculos rápidos
+              </p>
+            </div>
+          </button>
+
+          <button
+            onClick={() => {
+              openMinesweeper();
+              setIsStartMenuOpen(false);
+            }}
+            className="flex items-center space-x-2 w-full p-1.5 rounded-xs hover:bg-[#316AC5] hover:text-white cursor-pointer group text-left"
+          >
+            <XpIconRenderer icon="minesweeper" size={24} />
+            <div className="overflow-hidden">
+              <p className="font-bold text-gray-900 group-hover:text-white truncate">
+                Campo Minado
+              </p>
+              <p className="text-[9px] text-gray-500 group-hover:text-blue-100 truncate">
+                Jogo Clássico
+              </p>
+            </div>
+          </button>
+
+          <button
+            onClick={() => {
+              openCmd();
+              setIsStartMenuOpen(false);
+            }}
+            className="flex items-center space-x-2 w-full p-1.5 rounded-xs hover:bg-[#316AC5] hover:text-white cursor-pointer group text-left"
+          >
+            <XpIconRenderer icon="cmd" size={24} />
+            <div className="overflow-hidden">
+              <p className="font-bold text-gray-900 group-hover:text-white truncate">
+                Prompt de comando
+              </p>
+              <p className="text-[9px] text-gray-500 group-hover:text-blue-100 truncate">
+                Terminal CLI
+              </p>
+            </div>
+          </button>
+
           <button
             onClick={() => {
               openNotepad();
@@ -89,28 +185,10 @@ export const XpStartMenu: React.FC = () => {
             </div>
           </button>
 
-          <button
-            onClick={() => {
-              openProjectManager();
-              setIsStartMenuOpen(false);
-            }}
-            className="flex items-center space-x-2 w-full p-1.5 rounded-xs hover:bg-[#316AC5] hover:text-white cursor-pointer group text-left"
-          >
-            <XpIconRenderer icon="project-manager" size={24} />
-            <div className="overflow-hidden">
-              <p className="font-bold text-gray-900 group-hover:text-white truncate">
-                Gerenciar Projetos
-              </p>
-              <p className="text-[9px] text-gray-500 group-hover:text-blue-100 truncate">
-                Adicionar subdomínios
-              </p>
-            </div>
-          </button>
-
           <div className="h-[1px] bg-gray-200 my-1" />
 
-          {/* Dynamic Pinned Projects (Prisma, etc.) */}
-          <span className="text-[9px] font-bold text-gray-400 px-1 uppercase tracking-wider">
+          {/* Dynamic Pinned Projects */}
+          <span className="text-[9px] font-bold text-gray-400 px-1 uppercase tracking-wider block">
             Projetos Recentes
           </span>
 
@@ -123,7 +201,7 @@ export const XpStartMenu: React.FC = () => {
               }}
               className="flex items-center space-x-2 w-full p-1.5 rounded-xs hover:bg-[#316AC5] hover:text-white cursor-pointer group text-left"
             >
-              <XpIconRenderer icon={p.icon} size={22} />
+              <XpIconRenderer icon={p.icon} size={20} />
               <div className="overflow-hidden">
                 <p className="font-medium text-gray-800 group-hover:text-white truncate">
                   {p.title}
@@ -184,6 +262,17 @@ export const XpStartMenu: React.FC = () => {
           >
             <Settings size={16} className="text-gray-600" />
             <span>Painel de Controle</span>
+          </button>
+
+          <button
+            onClick={() => {
+              openDisplayProperties();
+              setIsStartMenuOpen(false);
+            }}
+            className="flex items-center space-x-2 w-full p-1.5 rounded-xs hover:bg-[#316AC5] hover:text-white cursor-pointer text-left"
+          >
+            <XpIconRenderer icon="display-properties" size={16} />
+            <span>Propriedades de Vídeo</span>
           </button>
 
           <button

@@ -13,6 +13,12 @@ import { XpSystemProperties } from './XpSystemProperties';
 import { XpProjectManager } from './XpProjectManager';
 import { XpBrowser } from './XpBrowser';
 import { XpRecycleBin } from './XpRecycleBin';
+import { XpCmd } from './XpCmd';
+import { XpDisplayProperties } from './XpDisplayProperties';
+import { XpMinesweeper } from './XpMinesweeper';
+import { XpMediaPlayer } from './XpMediaPlayer';
+import { XpPaint } from './XpPaint';
+import { XpCalculator } from './XpCalculator';
 import { sounds } from '../../utils/sound';
 
 export const XpDesktop: React.FC = () => {
@@ -27,6 +33,12 @@ export const XpDesktop: React.FC = () => {
     openNotepad,
     openSystemProperties,
     openProjectManager,
+    openCmd,
+    openDisplayProperties,
+    openMinesweeper,
+    openMediaPlayer,
+    openPaint,
+    openCalculator,
     arrangeIconsToGrid,
   } = useDesktop();
 
@@ -59,6 +71,11 @@ export const XpDesktop: React.FC = () => {
   let iconIndex = 0;
   const posMyComputer = getGridPosition(iconIndex++);
   const posMyProjects = getGridPosition(iconIndex++);
+  const posCmd = getGridPosition(iconIndex++);
+  const posPaint = getGridPosition(iconIndex++);
+  const posMinesweeper = getGridPosition(iconIndex++);
+  const posMediaPlayer = getGridPosition(iconIndex++);
+  const posCalc = getGridPosition(iconIndex++);
   const posNotepad = getGridPosition(iconIndex++);
   const posProjectManager = getGridPosition(iconIndex++);
 
@@ -113,7 +130,57 @@ export const XpDesktop: React.FC = () => {
         onOpen={() => openFolderWindow('web-apps')}
       />
 
-      {/* 3. Bloco de Notas (README.txt) */}
+      {/* 3. Prompt de Comando */}
+      <XpDesktopIcon
+        id="desktop-cmd"
+        title="Prompt de comando"
+        icon="cmd"
+        defaultX={posCmd.x}
+        defaultY={posCmd.y}
+        onOpen={openCmd}
+      />
+
+      {/* 4. Paint */}
+      <XpDesktopIcon
+        id="desktop-paint"
+        title="Paint"
+        icon="paint"
+        defaultX={posPaint.x}
+        defaultY={posPaint.y}
+        onOpen={openPaint}
+      />
+
+      {/* 5. Campo Minado */}
+      <XpDesktopIcon
+        id="desktop-minesweeper"
+        title="Campo Minado"
+        icon="minesweeper"
+        defaultX={posMinesweeper.x}
+        defaultY={posMinesweeper.y}
+        onOpen={openMinesweeper}
+      />
+
+      {/* 6. Windows Media Player */}
+      <XpDesktopIcon
+        id="desktop-media-player"
+        title="Windows Media Player"
+        icon="media-player"
+        defaultX={posMediaPlayer.x}
+        defaultY={posMediaPlayer.y}
+        onOpen={openMediaPlayer}
+      />
+
+      {/* 7. Calculadora */}
+      <XpDesktopIcon
+        id="desktop-calc"
+        title="Calculadora"
+        icon="calc"
+        defaultX={posCalc.x}
+        defaultY={posCalc.y}
+        onOpen={openCalculator}
+      />
+
+      {/* 8. Bloco de Notas (README.txt) */}
       <XpDesktopIcon
         id="desktop-readme"
         title="README.txt"
@@ -123,7 +190,7 @@ export const XpDesktop: React.FC = () => {
         onOpen={() => openNotepad()}
       />
 
-      {/* 4. Gerenciador de Projetos */}
+      {/* 9. Gerenciador de Projetos */}
       <XpDesktopIcon
         id="desktop-manager"
         title="Adicionar Projeto"
@@ -133,7 +200,7 @@ export const XpDesktop: React.FC = () => {
         onOpen={openProjectManager}
       />
 
-      {/* 5. Custom folders on Desktop (if any) */}
+      {/* Custom folders on Desktop (if any) */}
       {desktopFolders.map((folder, index) => (
         <XpDesktopIcon
           key={folder.id}
@@ -146,7 +213,7 @@ export const XpDesktop: React.FC = () => {
         />
       ))}
 
-      {/* 6. Custom user projects on Desktop (if any) */}
+      {/* Custom user projects on Desktop (if any) */}
       {desktopProjects.map((project, index) => (
         <XpDesktopIcon
           key={project.id}
@@ -159,7 +226,7 @@ export const XpDesktop: React.FC = () => {
         />
       ))}
 
-      {/* 7. Lixeira */}
+      {/* Lixeira */}
       <XpDesktopIcon
         id="desktop-recycle-bin"
         title="Lixeira"
@@ -194,6 +261,12 @@ export const XpDesktop: React.FC = () => {
               <XpBrowser initialUrl={win.data?.browserUrl} />
             )}
             {win.type === 'recycle-bin' && <XpRecycleBin />}
+            {win.type === 'cmd' && <XpCmd />}
+            {win.type === 'display-properties' && <XpDisplayProperties />}
+            {win.type === 'minesweeper' && <XpMinesweeper />}
+            {win.type === 'media-player' && <XpMediaPlayer />}
+            {win.type === 'paint' && <XpPaint />}
+            {win.type === 'calc' && <XpCalculator />}
           </XpWindow>
         );
       })}
@@ -260,7 +333,7 @@ export const XpDesktop: React.FC = () => {
           <div className="h-[1px] bg-[#D4CEB8] my-1" />
           <button
             onClick={() => {
-              openSystemProperties();
+              openDisplayProperties();
               closeContextMenu();
             }}
             className="w-full text-left px-4 py-1 hover:bg-[#316AC5] hover:text-white cursor-pointer"

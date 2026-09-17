@@ -6,7 +6,13 @@ export type WindowType =
   | 'system-properties' 
   | 'browser' 
   | 'project-manager' 
-  | 'recycle-bin';
+  | 'recycle-bin'
+  | 'cmd'
+  | 'display-properties'
+  | 'minesweeper'
+  | 'media-player'
+  | 'paint'
+  | 'calc';
 
 export interface ProjectItem {
   id: string;
